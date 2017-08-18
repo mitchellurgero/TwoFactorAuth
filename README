@@ -1,0 +1,65 @@
+## 2FA for GNU Social / postActiv
+(This plugin is written by sstjohn (https://git.gnu.io/sstjohn) Not by me - I just ripped it out of the merge request that has been sitting for over a year so that others can use it right away.)
+
+
+This plugin allows users to secure their accounts using two-factor
+authentication. Upon completion of primary (username/password) authentication,
+so-enabled accounts are required to provide secondary authentication before
+access is granted. There are several secondary authentication mechanisms
+implemented.
+
+
+FIDO 2.0
+========
+The Fast IDentity Online (FIDO) 2.0 authenticator allows users to authenticate
+using a FIDO 2.0 credential, such as is provided by Windows Hello.
+
+As of April 2016, the only browser known to support the FIDO 2.0 standard is 
+Microsoft Edge.
+
+TOTP
+====
+The Time-based One-Time Password authenticator allows users to authenticate
+using a TOTP generator, such as FreeOTP or Google Authenticator. For more
+information about TOTP, please refer to RFC 6238.
+
+U2F
+===
+The Universal 2nd Factor authenticator allows users to authenticate using 
+FIDO U2F hardware keys. For more information about the FIDO Alliance or their 
+Universal 2nd Factor specification, please refer to https://fidoalliance.org.
+
+As of March 2016, the only browser known to support U2F is Chrome. Progress 
+towards U2F support in Microsoft Edge and Mozilla Firefox can be observed at 
+the following URLs:
+ * https://dev.modern.ie/platform/status/fido20webapis/
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=1065729
+
+Backup Passwords
+================
+A set of random one-time use passwords can be generated and recorded by the 
+user offline, allowing emergency and recovery access to the account.
+
+Application Passwords
+=====================
+API access by username/password login is prevented for accounts requiring
+secondary authentication for failing to meet that requirement. As such,
+client application such as andStatus may fail to log in when the requirement 
+is enabled for an account.
+
+To grant access to such applications, an application-specific password may
+be generated and stored in the client. These passwords are long, random strings
+which do not permit web access, and are individually revocable in the case of
+client compromise.
+
+
+Installation
+============
+add "addPlugin('TwoFactorAuth');" to the bottom of your config.php
+
+
+Acknowledgements
+================
+This plugin contains BSD-licensed libraries by Yubico AB and by Google Inc, and
+MIT-licensed libraries by Jeroen van den Enden, by Christian Riesen, and by
+Florent Morselli, all in unmodified form.
